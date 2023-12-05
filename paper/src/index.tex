@@ -15,38 +15,101 @@ The urgency and importance of this development are underscored by the efforts of
 
 In this context, the potential of an early fire detection system cannot be overstated. By enabling quicker and more accurate detection of wildfires, especially in remote or hard-to-reach areas where traditional surveillance methods are limited, such a system could have a profound economic effect. The anticipated benefits include significant cost savings, potentially amounting to millions of dollars annually, and more importantly, the mitigation of extensive environmental and property damage. Our research aims to explore and validate the effectiveness of this CV-based system, positioning it as a pivotal tool in the ongoing battle against wildfires.
 
-\section{Problem Description}
 
-Consectetur aute sit qui laborum Lorem deserunt proident excepteur id ad consequat. Commodo eiusmod fugiat id labore exercitation excepteur. Incididunt deserunt ipsum esse. Cupidatat adipisicing consequat aliqua occaecat dolore esse. Culpa occaecat labore consectetur id ea velit pariatur fugiat ipsum adipisicing quis sit. Quis anim adipisicing commodo sunt aliquip ipsum nulla labore. Ipsum nulla sunt exercitation voluptate laborum proident qui cupidatat pariatur. Eu labore ut deserunt deserunt sint magna id dolor et nulla laborum.
+Detecting fires from a set of images
+
+Building a computer vision model that can classify fire/no-fire from an image
+
+We use ground-based imagery which is real-time and less expensive while generating high resolution images
+
+Data augmentation allows our model to generalize better and improve our model’s ability to detect fires in various scenarios
+
+Hyperparameter tuning allows us to find the optimal configuration for our model
+
+Can easily be expanded by leveraging contextual information, such as weather data or land use information, to help distinguish between different types of fires
+
+We used pre-trained deep learning models such as ResNet for feature extraction which can also be fine-tuned for better generalization via transfer learning
 
 \section{Related Work}
 
+Over-reliance on smoke detection: not all fires cause smoke, which can delay fire detection
 
-Consectetur aute sit qui laborum Lorem deserunt proident excepteur id ad consequat. Commodo eiusmod fugiat id labore exercitation excepteur. Incididunt deserunt ipsum esse. Cupidatat adipisicing consequat aliqua occaecat dolore esse. Culpa occaecat labore consectetur id ea velit pariatur fugiat ipsum adipisicing quis sit. Quis anim adipisicing commodo sunt aliquip ipsum nulla labore. Ipsum nulla sunt exercitation voluptate laborum proident qui cupidatat pariatur. Eu labore ut deserunt deserunt sint magna id dolor et nulla laborum.
+Maintenance issues such as sensor calibration problems or battery failures
+False positives that can be triggered by cooking smoke, steam, dust, or other airborne particles
+
+Satellite imagery for wildfire detection is vulnerable to atmospheric conditions, low resolution, and lack of real-time monitoring
+
+\subsection{How We Are Better}
+
+Velit adipisicing ullamco dolor deserunt laboris. Veniam culpa ex reprehenderit adipisicing tempor amet reprehenderit amet pariatur adipisicing dolor fugiat occaecat enim. Cillum commodo sit voluptate est tempor esse elit exercitation. Et cupidatat id veniam occaecat nulla tempor occaecat aliqua ad ex ullamco ullamco eu laboris. Nulla officia aliqua nulla veniam quis proident proident ut mollit dolor tempor eu sint voluptate excepteur. Deserunt occaecat ipsum aute consequat veniam ipsum veniam ad aute. Labore reprehenderit laborum amet sit. Anim proident magna magna cupidatat deserunt proident officia officia ad.
 
 \section{Data Collection}
 
-Commodo velit magna Lorem reprehenderit excepteur consequat mollit consequat nisi. Adipisicing nostrud ullamco nostrud commodo ea aliqua. Laboris ut do officia id ipsum commodo. Nostrud aute consectetur sint excepteur veniam. Incididunt fugiat magna Lorem occaecat cillum. Quis exercitation Lorem occaecat reprehenderit eiusmod proident laborum anim minim nisi est. Magna tempor excepteur aliquip ut commodo do laboris adipisicing in laboris veniam voluptate fugiat nisi eu.
+Utilized a 16GB image dataset obtained from Kaggle \& Internet
 
 \section{Preprocessing}
 
-Occaecat est ad non voluptate occaecat labore elit voluptate officia ipsum Lorem deserunt dolore labore voluptate. Anim eu ut voluptate quis. Duis adipisicing excepteur ut occaecat laborum ullamco ad laborum do consectetur laboris in ea culpa. Ad pariatur nisi quis eiusmod ea culpa irure incididunt duis laborum.
+Resized images to 200 × 200 for memory efficiency and to capitalize on batch processing.
+
+Deleted duplicate images via image hashing.
+
+Applied data augmentation to increase dataset size by 5x through changes in image zoom, brightness, color jittering, gaussian noise, and horizontal flipping.
+
+Standardized the file format to JPEG files.
+
+The final result was two image classes with 462,980 fire images and 380,882 non-fire images.
+
+Resize images to 200x200 image size
+
+Delete duplicate images using image hashing (including corrupted files)
+
+Apply data augmentation to increase dataset size:
+
+Delete duplicate images using image hashing (including corrupted files)
+
+Rename files for a consistent naming convention
+
+Change all file types (.png, .jpeg) to .jpg
+
+\begin{figure}%
+    \centering
+    \subfloat[\centering Original]{{\includegraphics[width=4cm, height=4cm]{original} }}%
+    \qquad
+    \subfloat[\centering Brightened]{{\includegraphics[width=4cm, height=4cm]{brightened} }}%
+	\qquad
+	\subfloat[\centering Noised]{{\includegraphics[width=4cm, height=4cm]{noised} }}%
+
+	\subfloat[\centering Flipped]{{\includegraphics[width=4cm, height=4cm]{flipped} }}%
+	\qquad
+	\subfloat[\centering Jittered]{{\includegraphics[width=4cm, height=4cm]{jittered} }}%
+	\qquad
+	\subfloat[\centering Zoomed]{{\includegraphics[width=4cm, height=4cm]{zoomed} }}%
+    \caption{
+		Example of augmented training data, using various methods
+	}%
+    \label{fig:example}%
+\end{figure}
 
 \section{Model and Methods}
 
-Adipisicing culpa id reprehenderit. Excepteur pariatur quis tempor id cupidatat laborum sunt id reprehenderit deserunt. Culpa mollit exercitation id officia enim deserunt culpa nisi Lorem ullamco tempor ut culpa laboris. Officia nulla sint excepteur. Ea non nostrud tempor voluptate excepteur consequat culpa tempor dolore laboris eiusmod consequat incididunt. Minim enim labore commodo. Enim dolore amet officia consectetur quis elit proident duis labore cupidatat.
+80\%-20\% split in training and testing set and 85\%-15\% split in training and validation set
+Hyperparameter tuning: 10 epochs, SGD optimizer, momentum=0.9, LR 0.001
+We tried different neural networks among ResNet, MobileNet, and AlexNet to determine which model had the best performance.
 
 \section{Results}
 
-Occaecat sint ad aliquip ut ipsum officia eu mollit cillum. Ullamco eu cupidatat deserunt deserunt et ut pariatur esse non Lorem ut nisi labore proident. Voluptate magna enim laboris adipisicing elit mollit qui Lorem mollit nostrud ipsum magna eiusmod aliquip. Quis velit et adipisicing adipisicing.
+Graph goes here
 
-\section{Future Directions}
+ResNet best-performed with deeper layers and skip connections.
+MobileNet performed worse than ResNet due to its streamlined architecture, which, while efficient, doesn’t capture complex patterns as effectively. AlexNet also performed worse than ResNet due to its relatively simpler architecture.
 
-Excepteur nulla eu et qui consequat quis sunt reprehenderit velit quis eiusmod non. Nostrud consequat esse quis fugiat Lorem officia minim elit esse do anim elit laborum ullamco. Aute nisi nulla officia nisi Lorem tempor enim voluptate cupidatat est. Deserunt ipsum veniam aute id sunt.
 
 \section{Conclusions}
 
-Dolore nulla ex duis sint mollit amet deserunt dolor laborum. Ex occaecat do minim fugiat ea laboris incididunt est cillum minim sint incididunt fugiat deserunt. Adipisicing adipisicing commodo laborum consectetur dolor cillum Lorem sint deserunt irure proident qui. Veniam aute officia voluptate sunt qui ex. Sunt ipsum irure elit consectetur. Nulla ullamco eiusmod ullamco mollit. Incididunt cillum in id ad id sint qui amet. Do aute sit aute ipsum est ut reprehenderit voluptate exercitation exercitation.
+To combat potential overfitting, we may employ k-fold cross-validation to train the model on different subsets.
+By applying semantic segmentation to our model, we can assign labels to pixels of the image to identify the precise region of a fire.
+We can collect more edge case images with light sources to make the model more false-positive-proof.
+
 
 \section{Citations, figures, tables, references}
 \label{others}
