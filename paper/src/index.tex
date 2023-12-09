@@ -1,10 +1,9 @@
 \maketitle
 
 \begin{abstract}
-	In response to the critical need for efficient wildfire detection, this study presents an approach leveraging machine learning techniques applied to images from ground cameras and drones. Traditional methods, predominantly relying on satellite imagery, often grapple with false positives and maintenance challenges. Our method aims to address these limitations by utilizing a more direct and responsive source of visual data. The significance of this research is underscored by California's substantial investment in wildfire management, with CalFire allocating \$3.3 billion annually for this purpose. The proposed system, therefore, has the potential to significantly reduce costs and enhance early detection capabilities, particularly in remote areas.
-	We curated a comprehensive dataset of 843,862 images, categorized into fire and non-fire classes, from a 16GB image repository sourced from Kaggle. To optimize memory usage and enable efficient batch processing, images were resized to $200 \times 200$ pixels. Duplicate removal was achieved through image hashing, and data augmentation techniques expanded our dataset fivefold. This included modifications in zoom, brightness, color jittering, Gaussian noise, and horizontal flipping. All images were standardized to JPEG format.
-	For model development, we employed an 80\%-20\% split for training and testing, and an 85\%-15\% split for training and validation. The study experimented with various neural networks, including ResNet, MobileNet, and AlexNet, over 10 epochs using SGD and Adam optimization with a momentum of 0.9 and a learning rate of 0.001. ResNet emerged as the most effective model, benefiting from deeper layers and skip connections. MobileNet, while efficient, lacked the complexity needed for pattern recognition, and AlexNet's simpler architecture led to lower performance.
-	To enhance the robustness of our model against overfitting, we are considering the implementation of k-fold cross-validation. Additionally, we plan to integrate semantic segmentation for more precise fire localization. Future work will focus on augmenting the dataset with edge case images, particularly those with various light sources, to improve the model's resistance to false positives. This research not only contributes to the field of wildfire detection but also demonstrates the potential of machine learning in addressing environmental and public safety challenges.
+	In response to the critical need for efficient wildfire detection, this study presents an approach leveraging machine learning techniques applied to images from ground cameras and drones. Traditional methods, predominantly relying on satellite imagery, often need help with false positives and maintenance challenges. Our method addresses these limitations using a more direct and responsive visual data source. The significance of this research is underscored by California's substantial investment in wildfire management, with CalFire allocating \$3.3 billion annually for this purpose. The proposed system has the potential to significantly reduce costs and enhance early detection capabilities, particularly in remote areas.
+    We curated a comprehensive dataset of 843,862 images, categorized into fire and non-fire classes, from a 16GB image repository from Kaggle. To optimize memory usage and enable efficient batch processing, we resized images to $200 \times 200$ pixels and removed duplicate images through image hashing. Data augmentation techniques expanded our dataset fivefold, including modifications in zoom, brightness, color jittering, Gaussian noise, and horizontal flipping. All images were standardized to JPEG format. For model development, we employed an 80\%-20\% split for training and testing and an 85\%-15\% split for training and validation. The study experimented with various neural networks, including ResNet, MobileNet, and AlexNet, over ten epochs using SGD and Adam optimization with a momentum of 0.9 and a learning rate of 0.001. ResNet emerged as the most effective model, benefiting from deeper layers and skip connections. MobileNet, while efficient, lacked the complexity needed for pattern recognition, and AlexNet's simpler architecture led to lower performance.
+    To enhance the robustness of our model against overfitting, we are considering the implementation of k-fold cross-validation. Additionally, we plan to integrate semantic segmentation for more precise fire localization. Future work will focus on augmenting the dataset with edge case images, particularly those with various light sources, to improve the model's resistance to false positives. This research contributes to the wildfire detection field and demonstrates the potential of machine learning in addressing environmental and public safety challenges.
 \end{abstract}
 
 \section{Introduction}
@@ -47,12 +46,12 @@ This article discusses various data augmentation techniques applied to an image 
 
 \subsection{A Robust Fire Detection Model via Convolution Neural Networks for Intelligent Robot Vision Sensing~\citep{s22082929}}
 
-Traditional fire-detection methods would use smoke detection through smoke contours and the combination of “color, texture and dynamic features.” They further tracked a fire’s motion by decomposing the fire images and applying an SVM to detect smoke.
+Traditional fire-detection methods would use smoke detection through smoke contours and the combination of ``color, texture and dynamic features.'' They further tracked a fire's motion by decomposing the fire images and applying an SVM to detect smoke.
 These are vulnerable to false positives and objects that appear fire-like, so we applied deep learning via neural networks for fire detection since they are better at extracting features and creating high-level connections
 
 \subsection{A Robust Fire Detection Model via Convolution Neural Networks for Intelligent Robot Vision Sensing~\citep{howard2017mobilenets}}
 
-Due to resources available, we did not want a computationally expensive neural network to identify features from images. Upon research, we discovered that MobileNet implements a convolutional neural network that uses “depthwise separable convolutions” to apply a single filter to each input channel, thus reducing “the computation in the first few layers” and trading our model’s accuracy for speed.
+Due to resources available, we did not want a computationally expensive neural network to identify features from images. Upon research, we discovered that MobileNet implements a convolutional neural network that uses ``depthwise separable convolutions" to apply a single filter to each input channel, thus reducing ``the computation in the first few layers" and trading our model's accuracy for speed.
 
 \subsection{Review of AlexNet for Medical Image Classification~\citep{tang2023review}}
 
@@ -60,7 +59,6 @@ This article explains: AlexNet first took advantage of deep convolutional neural
 
 \subsection{Deep Residual Learning for Image Recognition
 	~\citep{he2015deep}}
-
 
 This article explains: With very deep neural networks, performance may begin to degrade with increasing depth as gradients become smaller by backpropagation through more layers, thus preventing weights from being updated. ResNets solve this by introducing a residual learning framework which makes use of shortcut connections through which gradients can directly flow through each layer in the network. We adapt this architecture in our model.
 
@@ -74,45 +72,45 @@ This article discusses and analyzes various loss functions and their performance
 
 \section{Data Collection and Preprocessing}
 
-Our research leveraged a substantial 16GB image dataset, meticulously compiled from a range of Kaggle datasets and additional sources available on the internet. Among these were prominent collections such as \href{https://www.kaggle.com/datasets/mohnishsaiprasad/forest-fire-images}{Forest Fire Images}, \href{https://www.kaggle.com/datasets/ritupande/fire-detection-from-cctv}{Fire Detection from CCTV}, and \href{https://www.kaggle.com/datasets/diversisai/fire-segmentation-image-dataset}{Fire Segmentation Image Dataset}, along with several others, each contributing unique perspectives to our study.
 
-In preparing this dataset for rigorous analysis, several critical steps were undertaken. Initially, all images were resized to a uniform dimension of \(200 \times 200\) pixels. This resizing was pivotal for enhancing memory efficiency, particularly beneficial for batch processing techniques in machine learning algorithms.
-
-To maintain the quality and uniqueness of our dataset, we utilized advanced image hashing algorithms. This approach was instrumental in identifying and removing duplicate images, including those that were corrupted, thus ensuring the purity and reliability of our dataset.
-
-Further, we employed a variety of data augmentation techniques to artificially expand our dataset size by a factor of five. This augmentation included modifications in image attributes such as zoom levels, brightness adjustments, color jittering effects, the addition of gaussian noise, and horizontal flipping. Such diversity in image transformations aimed to introduce a more robust set of features for model training, simulating a wider range of real-world scenarios. See figure \ref{preprocessing} for examples of these transformations.
-
-A crucial aspect of our data processing was the standardization of the image file format. All images were converted to the JPEG format, a decision driven by JPEG's widespread compatibility and balance between quality and file size. Alongside this, we implemented a systematic naming convention across all files to facilitate easier access and organization.
-
-The culmination of these extensive preprocessing efforts resulted in a well-structured dataset comprising two primary classes: fire images and non-fire images. The final counts stood at 462,980 images in the fire category and 380,882 in the non-fire category, offering a comprehensive resource for our subsequent analytical endeavors.
-
-
-\begin{figure}%
+\begin{figure}[htbp]
 	\centering
-	\subfloat[\centering Original]{{\includegraphics[width=4cm, height=4cm]{original} }}%
+	\subfloat[\centering Original]{{\includegraphics[width=2cm, height=2cm]{original} }}%
 	\qquad
-	\subfloat[\centering Brightened]{{\includegraphics[width=4cm, height=4cm]{brightened} }}%
+	\subfloat[\centering Brightened]{{\includegraphics[width=2cm, height=2cm]{brightened} }}%
 	\qquad
-	\subfloat[\centering Noised]{{\includegraphics[width=4cm, height=4cm]{noised} }}%
+	\subfloat[\centering Noised]{{\includegraphics[width=2cm, height=2cm]{noised} }}%
 
-	\subfloat[\centering Flipped]{{\includegraphics[width=4cm, height=4cm]{flipped} }}%
+	\subfloat[\centering Flipped]{{\includegraphics[width=2cm, height=2cm]{flipped} }}%
 	\qquad
-	\subfloat[\centering Jittered]{{\includegraphics[width=4cm, height=4cm]{jittered} }}%
+	\subfloat[\centering Jittered]{{\includegraphics[width=2cm, height=2cm]{jittered} }}%
 	\qquad
-	\subfloat[\centering Zoomed]{{\includegraphics[width=4cm, height=4cm]{zoomed} }}%
+	\subfloat[\centering Zoomed]{{\includegraphics[width=2cm, height=2cm]{zoomed} }}%
 	\caption{
 		Example of augmented training data, using various methods
 	}%
 	\label{preprocessing}
 \end{figure}
 
+Our research leveraged a substantial 16GB image dataset, compiled from a range of Kaggle datasets and additional sources available on the internet. Among these were prominent collections such as \href{https://www.kaggle.com/datasets/mohnishsaiprasad/forest-fire-images}{Forest Fire Images}, \href{https://www.kaggle.com/datasets/ritupande/fire-detection-from-cctv}{Fire Detection from CCTV}, and \href{https://www.kaggle.com/datasets/diversisai/fire-segmentation-image-dataset}{Fire Segmentation Image Dataset}, along with several others, each contributing unique perspectives to our study.
+
+We took several critical steps in preparing this dataset for analysis. Initially, all images were resized to a uniform dimension of \(200 \times 200\) pixels. This resizing was pivotal for enhancing memory efficiency, particularly beneficial for batch processing techniques in machine learning algorithms.
+
+To maintain the quality and uniqueness of our dataset, we utilized advanced image hashing algorithms. This approach was instrumental in identifying and removing duplicate photos, including corrupted images, thus ensuring the purity and reliability of our dataset.
+
+Further, we employed various data augmentation techniques to expand our dataset size by a factor of five. This augmentation included modifications in image attributes such as zoom levels, brightness adjustments, color jittering effects, the addition of Gaussian noise, and horizontal flipping. Such diversity in image transformations aimed to introduce a more robust set of features for model training, simulating a more comprehensive range of real-world scenarios. See figure \ref{preprocessing} for examples of these transformations.
+
+A crucial aspect of our data processing was the standardization of the image file format. All images were converted to the JPEG format, a decision driven by JPEG's widespread compatibility and balance between quality and file size. We also implemented a systematic naming convention across all files to facilitate easier access and organization.
+
+These extensive preprocessing efforts culminated in a well-structured dataset comprising two primary classes: fire images and non-fire images. The final counts stood at 462,980 images in the fire category and 380,882 in the non-fire category, offering a comprehensive resource for our subsequent analytical endeavors.
+
 \section{Model and Methods}
 
-In the course of our study, we implemented a strategic approach to training and validating our models. The dataset was divided into different subsets for training, testing, and validation purposes. Specifically, we adopted an 80\%-20\% split for the training and testing sets. This division ensured that a significant portion of the dataset was used for model training while still retaining a substantial amount for testing purposes, thereby facilitating a comprehensive evaluation of model performance. Additionally, for the purpose of model validation, we employed an 85\%-15\% split between the training and validation sets. This allocation was intended to fine-tune the models and prevent overfitting, ensuring they generalize well to new, unseen data.
+We implemented a strategic approach to training and validating our models during our study. The dataset was divided into different subsets for training, testing, and validation purposes. Specifically, we adopted an 80\%-20\% split for the training and testing sets. This division ensured that a significant portion of the dataset was used for model training while retaining a substantial amount for testing purposes, thereby facilitating a comprehensive evaluation of model performance. Additionally, we employed an 85\%-15\% split between the training and validation sets for model validation.
 
-For the optimization of our models, we engaged in hyperparameter tuning, a crucial aspect of machine learning. The models were trained over 10 epochs, which provided a balance between computational efficiency and allowing the models enough iterations to learn from the data effectively. We used the Stochastic Gradient Descent (SGD) optimizer, known for its effectiveness in large-scale and noisy data scenarios, and Adam optimizere for ResNet The SGD was configured with a momentum of 0.9, which helps in accelerating the optimizer in the relevant direction and dampens oscillations. A learning rate (LR) of 0.001 was chosen to ensure gradual and stable convergence to the minimum loss.
+We experimented with several architectures, notably ResNet, MobileNet, and AlexNet. Each of these networks has unique strengths and architectural characteristics, making them suitable for different image recognition tasks. ResNet, known for its deep architecture and residual learning framework, is particularly effective in avoiding the vanishing gradient problem. MobileNet, on the other hand, is designed for mobile and embedded vision applications, offering a good balance between efficiency and accuracy. AlexNet, one of the pioneer deep neural networks in image classification, has a simpler architecture and is known for its effectiveness in basic image recognition tasks. The comparative analysis of these networks was aimed at determining which model provided the best performance in terms of accuracy, computational efficiency, and generalizability in the context of our fire and non-fire image classification task.
 
-In our quest to identify the most effective neural network for our task, we experimented with several architectures, notably ResNet, MobileNet, and AlexNet. Each of these networks has its unique strengths and architectural characteristics, making them suitable for different types of image recognition tasks. ResNet, known for its deep architecture and residual learning framework, is particularly effective in avoiding the vanishing gradient problem. MobileNet, on the other hand, is designed for mobile and embedded vision applications, offering a good balance between efficiency and accuracy. AlexNet, being one of the pioneer deep neural networks in image classification, has a simpler architecture and is known for its effectiveness in basic image recognition tasks. The comparative analysis of these networks was aimed at determining which model provided the best performance in terms of accuracy, computational efficiency, and generalizability in the context of our fire and non-fire image classification task.
+The models were trained over ten epochs, which provided a balance between computational efficiency and allowing the models enough iterations to learn from the data effectively. We used the Stochastic Gradient Descent (SGD) optimizer for AlexNet and MobileNet, and the Adam optimizer for ResNet. The SGD was configured with a momentum of 0.9, which helps accelerate the optimizer in the relevant direction and dampens oscillations. We chose a learning rate (LR) of 0.001 to ensure gradual and stable convergence to the minimum loss.
 
 \section{Results}
 
@@ -187,25 +185,29 @@ In our quest to identify the most effective neural network for our task, we expe
 	\end{tikzpicture}
 \end{center}
 
-Our experimental analysis yielded insightful results regarding the performance of different neural network architectures in the context of fire and non-fire image classification. Among the models tested, ResNet emerged as the top-performing architecture. This superior performance can be attributed to its deeper layers and innovative use of skip connections, a hallmark of ResNet. These skip connections facilitate the flow of gradients through the network, enabling the training of much deeper networks by effectively alleviating the vanishing gradient problem. Consequently, ResNet's ability to learn more complex patterns in the data was significantly enhanced, making it more adept at handling the intricacies of our diverse image dataset.
 
-In contrast, MobileNet, while known for its efficiency in computational resource utilization, particularly in mobile and embedded device applications, did not perform as well as ResNet in our experiments. The streamlined architecture of MobileNet, designed for speed and low memory usage, seemingly compromised its ability to capture complex patterns within the images. This limitation was particularly evident when compared to the more intricate and deep architecture of ResNet, which proved more capable of discerning nuanced features within our dataset.
+Our experimental analysis yielded insightful results regarding the performance of different neural network architectures in fire and non-fire image classification. Among the models tested, ResNet emerged as the top-performing architecture. This superior performance can be attributed to its deeper layers and innovative use of skip connections. These skip connections facilitate the flow of gradients through the network, enabling the training of much deeper networks by effectively alleviating the vanishing gradient problem. Consequently, ResNet's ability to learn more complex patterns in the data was significantly enhanced, making it more adept at handling the intricacies of our diverse image dataset.
 
-Similarly, AlexNet's performance was also inferior to that of ResNet. Despite being one of the pioneering architectures in deep learning for image recognition, AlexNet's relatively simpler architecture seemed less equipped to handle the complexity of our dataset compared to ResNet. AlexNet, with fewer convolutional layers and a simpler structure, was less effective in capturing the detailed features required for accurate classification in our specific context.
+In contrast, MobileNet, while known for its efficiency in computational resource utilization, particularly in mobile and embedded device applications, did not perform as well as ResNet in our experiments. The streamlined architecture of MobileNet, designed for speed and low memory usage, seemingly compromised its ability to capture complex patterns within the images. This limitation was particularly evident when compared to ResNet's more intricate and deep architecture, which proved more capable of discerning nuanced features within our dataset.
 
-These findings underscore the importance of the depth and complexity of neural network architectures in handling diverse and challenging datasets. ResNet's deep architecture with skip connections provided a significant edge in learning detailed and complex patterns, a crucial factor in the accurate classification of fire and non-fire images in our study.
+Similarly, AlexNet's performance was also inferior to that of ResNet. Despite being one of the pioneering architectures in deep learning for image recognition, AlexNet's relatively more straightforward architecture seemed less equipped to handle our dataset's complexity than ResNet. AlexNet, with fewer convolutional layers and a more transparent structure, could have more effectively captured the detailed features required for accurate classification in our specific context.
 
-
-\section{Conclusions}
+These findings underscore the importance of the depth and complexity of neural network architectures in handling diverse and challenging datasets. ResNet's deep architecture with skip connections provided a significant edge in learning detailed and complex patterns, a crucial factor in our study's accurate classification of fire and non-fire images.
 
 
-In addressing the challenges posed by potential overfitting in our model, we are considering the implementation of k-fold cross-validation. This technique involves dividing the dataset into \(k\) subsets, or 'folds'. The model is then trained on \(k-1\) folds while using the remaining fold for testing. This process is repeated \(k\) times, with each fold serving as the testing set once. By training the model on different subsets of the data, k-fold cross-validation ensures a more robust and generalized learning, reducing the likelihood of overfitting.
+\section{Discussion}
 
-Additionally, we plan to enhance our model's capability by integrating semantic segmentation. This advanced technique involves assigning labels to each pixel in an image, enabling the model to identify the precise regions where fire is present. Semantic segmentation is particularly effective in scenarios where understanding the context and exact location of the target within the image is crucial. By employing this method, our model will not only detect the presence of fire but also delineate the specific areas affected by it.
+In addressing the challenges posed by potential overfitting in our model, we are considering the implementation of k-fold cross-validation. This technique divides the dataset into \(k\) subsets, or `folds'. The model is then trained on \(k-1\) folds while using the remaining fold for testing. This process is repeated \(k\) times, with each fold as the testing set once. By training the model on different subsets of the data, k-fold cross-validation ensures a more robust and generalized learning, reducing the likelihood of overfitting.
 
-Further, to improve the model's accuracy and reduce false positives, we aim to enrich our dataset with more edge case images. These images will predominantly feature various light sources that could potentially be mistaken for fire. By training the model on these additional images, we expect to enhance its ability to distinguish between actual fire and similar-looking light sources, thereby making it more resilient to false-positive errors.
+Additionally, we plan to enhance our model's capability by integrating semantic segmentation. This advanced technique involves assigning labels to each pixel in an image, enabling the model to identify the precise regions where fire is present. Semantic segmentation is particularly effective in scenarios where understanding the context and exact location of the target within the image is crucial. By employing this method, our model will detect the presence of fire and delineate the specific areas affected by it.
 
-These strategies collectively aim to refine the model's performance, ensuring it is not only accurate but also reliable and effective in diverse real-world scenarios.
+Further, we aim to enrich our dataset with more edge case images to improve the model's accuracy and reduce false positives. These images will predominantly feature various light sources that could be mistaken for fire. By training the model on these additional images, we expect to enhance its ability to distinguish between actual fire and similar-looking light sources, making it more resilient to false-positive errors.
+
+Collectively, we aim to refine the model's performance, ensuring it is accurate but also reliable and effective in diverse real-world scenarios.
+
+
+\bibliography{iclr2023_conference}
+\bibliographystyle{iclr2023_conference}
 
 \subsubsection*{Acknowledgments}
 
@@ -232,7 +234,3 @@ We used the following Kaggle repositories to collect the images of fire.
 	\item \href{https://www.kaggle.com/datasets/ankan1998/fire-detection-in-yolo-format}{Fire Detection in YOLO format}
 	\item \href{https://www.kaggle.com/datasets/ahemateja19bec1025/wildfiresmokedataset}{WildFire-Smoke-Dataset-Tensorflow}
 \end{itemize}
-
-
-\bibliography{iclr2023_conference}
-\bibliographystyle{iclr2023_conference}
