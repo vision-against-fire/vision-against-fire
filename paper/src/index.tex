@@ -2,8 +2,8 @@
 
 \begin{abstract}
 	In response to the critical need for efficient wildfire detection, this study presents an approach leveraging machine learning techniques applied to images from ground cameras and drones. Traditional methods, predominantly relying on satellite imagery, often need help with false positives and maintenance challenges. Our method addresses these limitations using a more direct and responsive visual data source. The significance of this research is underscored by California's substantial investment in wildfire management, with CalFire allocating \$3.3 billion annually for this purpose. The proposed system has the potential to significantly reduce costs and enhance early detection capabilities, particularly in remote areas.
-    We curated a comprehensive dataset of 843,862 images, categorized into fire and non-fire classes, from a 16GB image repository from Kaggle. To optimize memory usage and enable efficient batch processing, we resized images to $200 \times 200$ pixels and removed duplicate images through image hashing. Data augmentation techniques expanded our dataset fivefold, including modifications in zoom, brightness, color jittering, Gaussian noise, and horizontal flipping. All images were standardized to JPEG format. For model development, we employed an 80\%-20\% split for training and testing and an 85\%-15\% split for training and validation. The study experimented with various neural networks, including ResNet, MobileNet, and AlexNet, over ten epochs using SGD and Adam optimization with a momentum of 0.9 and a learning rate of 0.001. ResNet emerged as the most effective model, benefiting from deeper layers and skip connections. MobileNet, while efficient, lacked the complexity needed for pattern recognition, and AlexNet's simpler architecture led to lower performance.
-    To enhance the robustness of our model against overfitting, we are considering the implementation of k-fold cross-validation. Additionally, we plan to integrate semantic segmentation for more precise fire localization. Future work will focus on augmenting the dataset with edge case images, particularly those with various light sources, to improve the model's resistance to false positives. This research contributes to the wildfire detection field and demonstrates the potential of machine learning in addressing environmental and public safety challenges.
+	We curated a comprehensive dataset of 843,862 images, categorized into fire and non-fire classes, from a 16GB image repository from Kaggle. To optimize memory usage and enable efficient batch processing, we resized images to $200 \times 200$ pixels and removed duplicate images through image hashing. Data augmentation techniques expanded our dataset fivefold, including modifications in zoom, brightness, color jittering, Gaussian noise, and horizontal flipping. All images were standardized to JPEG format. For model development, we employed an 80\%-20\% split for training and testing and an 85\%-15\% split for training and validation. The study experimented with various neural networks, including ResNet, MobileNet, and AlexNet, over ten epochs using SGD and Adam optimization with a momentum of 0.9 and a learning rate of 0.001. ResNet emerged as the most effective model, benefiting from deeper layers and skip connections. MobileNet, while efficient, lacked the complexity needed for pattern recognition, and AlexNet's simpler architecture led to lower performance.
+	To enhance the robustness of our model against overfitting, we are considering the implementation of k-fold cross-validation. Additionally, we plan to integrate semantic segmentation for more precise fire localization. Future work will focus on augmenting the dataset with edge case images, particularly those with various light sources, to improve the model's resistance to false positives. This research contributes to the wildfire detection field and demonstrates the potential of machine learning in addressing environmental and public safety challenges. All codes available on GitHub \footnote{\url{https://github.com/vision-against-fire/vision-against-fire}}.
 \end{abstract}
 
 \section{Introduction}
@@ -27,13 +27,13 @@ A cornerstone of our approach was the use of pre-trained deep learning models, s
 
 \subsection{Deep Domain Adaptation Based Video Smoke Detection using Synthetic Smoke Images~\citep{Xu2017}}
 
-This paper used synthetic smoke images to train a computer vision model to detect wildfires due to limited actual data. We believed synthetic data would not accurately replicate the environmental conditions of a real fire, so we generalized our dataset to include all categories of “fire” data, instead of restricting it to smoke images.
+This paper used synthetic smoke images to train a computer vision model to detect wildfires due to limited actual data. We believed synthetic data would not accurately replicate the environmental conditions of a real fire, so we generalized our dataset to include all categories of ``fire'' data, instead of restricting it to smoke images.
 
 \subsection{A Study on a Complex Flame and Smoke Detection Method Using Computer Vision Detection and Convolutional Neural Network
 	~\citep{fire5040108}}
 
-This paper performed pre-processing using HSV color conversion, based on an image’s hue, saturation, and value to isolate a color region around the flame. Performing HSV color conversion proved to be computationally long and expensive, so we resorted to manipulation of other color attributes, such as color jittering.
-	
+This paper performed pre-processing using HSV color conversion, based on an image's hue, saturation, and value to isolate a color region around the flame. Performing HSV color conversion proved to be computationally long and expensive, so we resorted to manipulation of other color attributes, such as color jittering.
+
 \subsection{Wildfire Smoke Detection with Computer Vision
 	~\citep{Daniel}}
 
@@ -45,12 +45,12 @@ This paper discussed various data augmentation techniques applied to an image da
 
 \subsection{A Robust Fire Detection Model via Convolution Neural Networks for Intelligent Robot Vision Sensing~\citep{s22082929}}
 
-Traditional fire-detection methods would use smoke detection through smoke contours and the combination of “color, texture and dynamic features.” They further tracked a fire’s motion by decomposing the fire images and applying an SVM to detect smoke.
+Traditional fire-detection methods would use smoke detection through smoke contours and the combination of ``color, texture and dynamic features.'' They further tracked a fire's motion by decomposing the fire images and applying an SVM to detect smoke.
 These are vulnerable to false positives and objects that appear fire-like, so we applied deep learning via neural networks for fire detection since they are better at extracting features and creating high-level connections.
 
 \subsection{A Robust Fire Detection Model via Convolution Neural Networks for Intelligent Robot Vision Sensing~\citep{howard2017mobilenets}}
 
-Due to the limited resources available, we did not want a computationally expensive neural network to identify features from images. Upon research, we discovered that MobileNet implements a convolutional neural network that uses “depthwise separable convolutions” to apply a single filter to each input channel, thus reducing “the computation in the first few layers” and trading our model’s accuracy for speed.
+Due to the limited resources available, we did not want a computationally expensive neural network to identify features from images. Upon research, we discovered that MobileNet implements a convolutional neural network that uses ``depthwise separable convolutions'' to apply a single filter to each input channel, thus reducing ``the computation in the first few layers'' and trading our model's accuracy for speed.
 
 \subsection{Review of AlexNet for Medical Image Classification~\citep{tang2023review}}
 
