@@ -27,48 +27,47 @@ A cornerstone of our approach was the use of pre-trained deep learning models, s
 
 \subsection{Deep Domain Adaptation Based Video Smoke Detection using Synthetic Smoke Images~\citep{Xu2017}}
 
-This article used synthetic smoke images to train model to detect wildfire due to limited actual data.
-We believed synthetic data would not capture true environmental situations so we used “fire” data and did not specify different subdomains of fire (such as wildfires).
+This paper used synthetic smoke images to train a computer vision model to detect wildfires due to limited actual data. We believed synthetic data would not accurately replicate the environmental conditions of a real fire, so we generalized our dataset to include all categories of “fire” data, instead of restricting it to smoke images.
 
 \subsection{A Study on a Complex Flame and Smoke Detection Method Using Computer Vision Detection and Convolutional Neural Network
 	~\citep{fire5040108}}
 
-This article performed pre-processing using HSV color conversion, based on an image’s hue, saturation, and value to isolate a color region around the flame. Performing HSV color conversion proved to be computationally long and expensive, so we resorted to manipulation of other color attributes, such as color jittering.
+This paper performed pre-processing using HSV color conversion, based on an image’s hue, saturation, and value to isolate a color region around the flame. Performing HSV color conversion proved to be computationally long and expensive, so we resorted to manipulation of other color attributes, such as color jittering.
 	
 \subsection{Wildfire Smoke Detection with Computer Vision
 	~\citep{Daniel}}
 
-This article explains in Section V, Part C: Increased the amount of material for training by applying mirror effect and exposure. We applied more data augmentation techniques to increase our dataset size even more, allowing it to generalize more types of situations.
+This paper explained several data augmentation techniques used to increase the size of a wildfire image dataset. Notable techniques included mirror and exposure effects. Since our project used a similar fire-based image dataset, we experimented with these techniques for our model and researched additional effects that we could apply to our images to increase our dataset size even further, allowing it to generalize more types of situations.
 
 \subsection{Image Data Augmentation Approaches: A Comprehensive Survey and Future directions~\citep{kumar2023image}}
 
-This article discusses various data augmentation techniques applied to an image dataset and applied them in different computer vision tasks to compare their performances. It revealed the success of geometric data augmentation which translated and rotated an image, and non-geometric data augmentation, which flipped images and manipulated color. We applied these techniques to our model.
+This paper discussed various data augmentation techniques applied to an image dataset and compared their performance across different computer vision tasks. It revealed the success of geometric data augmentation which translated and rotated an image, and non-geometric data augmentation, which flipped images and manipulated color. We applied these techniques to our model.
 
 \subsection{A Robust Fire Detection Model via Convolution Neural Networks for Intelligent Robot Vision Sensing~\citep{s22082929}}
 
-Traditional fire-detection methods would use smoke detection through smoke contours and the combination of ``color, texture and dynamic features.'' They further tracked a fire's motion by decomposing the fire images and applying an SVM to detect smoke.
-These are vulnerable to false positives and objects that appear fire-like, so we applied deep learning via neural networks for fire detection since they are better at extracting features and creating high-level connections
+Traditional fire-detection methods would use smoke detection through smoke contours and the combination of “color, texture and dynamic features.” They further tracked a fire’s motion by decomposing the fire images and applying an SVM to detect smoke.
+These are vulnerable to false positives and objects that appear fire-like, so we applied deep learning via neural networks for fire detection since they are better at extracting features and creating high-level connections.
 
 \subsection{A Robust Fire Detection Model via Convolution Neural Networks for Intelligent Robot Vision Sensing~\citep{howard2017mobilenets}}
 
-Due to resources available, we did not want a computationally expensive neural network to identify features from images. Upon research, we discovered that MobileNet implements a convolutional neural network that uses ``depthwise separable convolutions" to apply a single filter to each input channel, thus reducing ``the computation in the first few layers" and trading our model's accuracy for speed.
+Due to the limited resources available, we did not want a computationally expensive neural network to identify features from images. Upon research, we discovered that MobileNet implements a convolutional neural network that uses “depthwise separable convolutions” to apply a single filter to each input channel, thus reducing “the computation in the first few layers” and trading our model’s accuracy for speed.
 
 \subsection{Review of AlexNet for Medical Image Classification~\citep{tang2023review}}
 
-This article explains: AlexNet first took advantage of deep convolutional neural networks for image detection after it won the 2012 ImageNet competition. Consisting of a large network structure with 60 million parameters and 650,000 neurons, it capitalizes on data augmentation and dropout methods to reduce overfitting. We decided to use this model as a baseline for our project.
+This article highlighted that AlexNet first took advantage of deep convolutional neural networks for image detection after it won the 2012 ImageNet competition. Consisting of a large network structure with 60 million parameters and 650,000 neurons, it capitalized on data augmentation and dropout methods to reduce overfitting. Due to its high popularity and adoption in computer vision applications, we decided to use this model as a baseline for our project.
 
 \subsection{Deep Residual Learning for Image Recognition
 	~\citep{he2015deep}}
 
-This article explains: With very deep neural networks, performance may begin to degrade with increasing depth as gradients become smaller by backpropagation through more layers, thus preventing weights from being updated. ResNets solve this by introducing a residual learning framework which makes use of shortcut connections through which gradients can directly flow through each layer in the network. We adapt this architecture in our model.
+This paper noted that performance may begin to degrade with increasing depth in deep neural networks as gradients become smaller by backpropagation through more layers, thus preventing weights from being updated. ResNets solve this by introducing a residual learning framework which makes use of shortcut connections through which gradients can directly flow through each layer in the network. We adapted this architecture in our model.
 
 \subsection{The effect of choosing optimizer algorithms to improve computer vision tasks: a comparative study~\citep{Hassan}}
 
-This article reveals that the adam optimizer performs best for general computer vision tasks, especially for deep networks since it converges more quickly than stochastic gradient descent by adapting the learning rate during training. We decided to apply the adam optimizer in our ResNet model.
+This paper revealed that the adam optimizer performed best for general computer vision tasks, especially for deep networks since it converged more quickly than stochastic gradient descent by adapting the learning rate during training. We decided to apply the adam optimizer in our ResNet model.
 
 \subsection{A Comprehensive Survey of Loss Functions in Machine Learning~\citep{Wang2022}}
 
-This article discusses and analyzes various loss functions and their performance in machine learning and deep learning tasks. As a binary classification problem, object detection performed well using a focal loss function, which adapts sigmoid cross entropy loss to resolve imbalance between classes. For our project, we decided to use sigmoid cross entropy loss based on its success in object detection on top of our dataset that was already roughly balanced between the fire and non-fire classes.
+This paper analyzed various loss functions and their performance in machine learning and deep learning tasks. As a binary classification problem, object detection performed well using a focal loss function, which adapts sigmoid cross entropy loss to resolve imbalance between classes. As a result of its success, we applied sigmoid cross entropy loss to our project on top of our dataset that was roughly balanced between the fire and non-fire classes.
 
 \section{Data Collection and Preprocessing}
 
